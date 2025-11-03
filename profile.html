@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Profile - TrackBuddy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="logo-text">TrackBuddy</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a></li>
+            <li><a href="profile.html" class="nav-link active"><i class="fas fa-user-md"></i> <span>Health Profile</span></a></li>
+            <li><a href="nutrition.html" class="nav-link"><i class="fas fa-apple-alt"></i> <span>Nutrition</span></a></li>
+            <li><a href="fitness.html" class="nav-link"><i class="fas fa-running"></i> <span>Fitness</span></a></li>
+            <li><a href="hydration.html" class="nav-link"><i class="fas fa-tint"></i> <span>Hydration</span></a></li>
+            <li><a href="reports.html" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <h1>Health Profile</h1>
+            <div class="user-profile">
+                <div class="user-avatar" id="user-avatar">PS</div>
+                <div>
+                    <div class="user-name" id="user-name">Loading...</div>
+                    <div class="user-role" id="user-email">Loading...</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Health Profile</div>
+                </div>
+                <form id="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" min="18" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" min="100" max="250" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" min="30" max="200" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fitnessGoals">Fitness Goals</label>
+                            <select id="fitnessGoals" required>
+                                <option value="weight_loss">Weight Loss</option>
+                                <option value="muscle_gain">Muscle Gain</option>
+                                <option value="maintenance">Maintenance</option>
+                                <option value="endurance">Endurance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dailyCalorieTarget">Daily Calorie Target</label>
+                            <input type="number" id="dailyCalorieTarget" min="1000" max="5000" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <button type="button" id="calculate-bmi-btn" class="btn" style="margin-right: 1rem;"><i class="fas fa-calculator"></i> Calculate BMI</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Profile</button>
+                    </div>
+                </form>
+                <div id="bmi-result" class="bmi-result" style="margin-top: 1.5rem; display: none;"></div>
+                <div id="profile-message" style="margin-top: 1rem; display: none;"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">BMI History</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="bmi-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>TrackBuddy &copy; 2023 | Corporate Wellness Platform | v2.1.4</p>
+        </footer>
+    </div>
+
+    <script src="user-manager.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

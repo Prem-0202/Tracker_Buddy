@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TrackBuddy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="logo-text">TrackBuddy</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link active"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a></li>
+            <li><a href="profile.html" class="nav-link"><i class="fas fa-user-md"></i> <span>Health Profile</span></a></li>
+            <li><a href="nutrition.html" class="nav-link"><i class="fas fa-apple-alt"></i> <span>Nutrition</span></a></li>
+            <li><a href="fitness.html" class="nav-link"><i class="fas fa-running"></i> <span>Fitness</span></a></li>
+            <li><a href="hydration.html" class="nav-link"><i class="fas fa-tint"></i> <span>Hydration</span></a></li>
+            <li><a href="reports.html" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <h1>Corporate Wellness Dashboard</h1>
+            <div class="user-profile">
+                <div class="user-avatar" id="user-avatar">PS</div>
+                <div>
+                    <div class="user-name" id="user-name">Loading...</div>
+                    <div class="user-role" id="user-email">Loading...</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page active">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">HEALTH SCORE</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="health-score">82</div>
+                    <div class="stat-change">
+                        <i class="fas fa-arrow-up"></i> 5% from last month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">CALORIES CONSUMED</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="dashboard-calories">0</div>
+                    <div class="stat-change">
+                        Target: 2,000
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">CALORIES BURNED</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="dashboard-burned">0</div>
+                    <div class="stat-change">
+                        Goal: 400
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">WATER INTAKE</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="dashboard-water">0/8</div>
+                    <div class="stat-change">
+                        0% of daily goal
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Weekly Health Overview</div>
+                    <div class="card-actions">
+                        <button class="btn btn-outline"><i class="fas fa-download"></i> Export</button>
+                        <button class="btn"><i class="fas fa-share"></i> Share Report</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="health-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Quick Actions</div>
+                </div>
+                <div class="form-row">
+                    <a href="profile.html" class="btn"><i class="fas fa-calculator"></i> Update BMI</a>
+                    <a href="nutrition.html" class="btn"><i class="fas fa-utensils"></i> Log Meal</a>
+                    <a href="fitness.html" class="btn"><i class="fas fa-running"></i> Log Workout</a>
+                    <a href="hydration.html" class="btn"><i class="fas fa-tint"></i> Log Water</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>TrackBuddy &copy; 2023 | Corporate Wellness Platform | v2.1.4</p>
+        </footer>
+    </div>
+
+    <script src="user-manager.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

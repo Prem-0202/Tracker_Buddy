@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Endpoints - TrackBuddy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .endpoint-card {
+            background: var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+        .endpoint-method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+        .get { background: var(--success); }
+        .post { background: var(--primary); }
+        .put { background: var(--warning); }
+        .delete { background: var(--danger); }
+        .endpoint-url {
+            font-family: monospace;
+            background: var(--darker);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: var(--secondary);
+            border: none;
+            color: var(--light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="logo-text">TrackBuddy</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a></li>
+            <li><a href="profile.html" class="nav-link"><i class="fas fa-user-md"></i> <span>Health Profile</span></a></li>
+            <li><a href="nutrition.html" class="nav-link"><i class="fas fa-apple-alt"></i> <span>Nutrition</span></a></li>
+            <li><a href="fitness.html" class="nav-link"><i class="fas fa-running"></i> <span>Fitness</span></a></li>
+            <li><a href="hydration.html" class="nav-link"><i class="fas fa-tint"></i> <span>Hydration</span></a></li>
+            <li><a href="reports.html" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+            <li><a href="api-endpoints.html" class="nav-link active"><i class="fas fa-code"></i> <span>API Endpoints</span></a></li>
+        </ul>
+    </aside>
+
+    <div class="main-content">
+        <header class="header">
+            <h1>API Endpoints</h1>
+            <div class="user-profile">
+                <div class="user-avatar" id="user-avatar">PS</div>
+                <div>
+                    <div class="user-name" id="user-name">Loading...</div>
+                    <div class="user-role" id="user-email">Loading...</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Base URL</div>
+                </div>
+                <div class="endpoint-url">
+                    https://fitness-tracker-1-tt21.onrender.com
+                    <button class="copy-btn" onclick="copyToClipboard('https://fitness-tracker-1-tt21.onrender.com')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Authentication Endpoints</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method post">POST</span>
+                        <strong>User Registration</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/auth/register
+                        <button class="copy-btn" onclick="copyToClipboard('/api/auth/register')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Body: name, email, password, age, weight, height, gender, fitnessGoals</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method post">POST</span>
+                        <strong>User Login</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/auth/login
+                        <button class="copy-btn" onclick="copyToClipboard('/api/auth/login')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Body: email, password</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">User Endpoints</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method get">GET</span>
+                        <strong>Get User Profile</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/users/profile
+                        <button class="copy-btn" onclick="copyToClipboard('/api/users/profile')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method put">PUT</span>
+                        <strong>Update User Profile</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/users/profile
+                        <button class="copy-btn" onclick="copyToClipboard('/api/users/profile')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}<br>
+                    Body: name, email, age, gender, height, weight, fitnessGoals</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method get">GET</span>
+                        <strong>Get Dashboard Data</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/users/dashboard
+                        <button class="copy-btn" onclick="copyToClipboard('/api/users/dashboard')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Workout Endpoints</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method get">GET</span>
+                        <strong>Get All Workouts</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/workouts
+                        <button class="copy-btn" onclick="copyToClipboard('/api/workouts')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method post">POST</span>
+                        <strong>Create Workout</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/workouts
+                        <button class="copy-btn" onclick="copyToClipboard('/api/workouts')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}<br>
+                    Body: exercise, duration, caloriesBurned, date</p>
+                </div>
+
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method delete">DELETE</span>
+                        <strong>Delete Workout</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/workouts/{id}
+                        <button class="copy-btn" onclick="copyToClipboard('/api/workouts/{id}')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Progress Endpoints</div>
+                </div>
+                
+                <div class="endpoint-card">
+                    <div>
+                        <span class="endpoint-method get">GET</span>
+                        <strong>Get Progress Data</strong>
+                    </div>
+                    <div class="endpoint-url">
+                        /api/progress
+                        <button class="copy-btn" onclick="copyToClipboard('/api/progress')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p>Headers: Authorization: Bearer {token}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Full Endpoint URLs</div>
+                </div>
+                <div style="font-family: monospace; font-size: 0.9rem; line-height: 1.6;">
+                    <div>POST https://fitness-tracker-1-tt21.onrender.com/api/auth/register</div>
+                    <div>POST https://fitness-tracker-1-tt21.onrender.com/api/auth/login</div>
+                    <div>GET https://fitness-tracker-1-tt21.onrender.com/api/users/profile</div>
+                    <div>PUT https://fitness-tracker-1-tt21.onrender.com/api/users/profile</div>
+                    <div>GET https://fitness-tracker-1-tt21.onrender.com/api/users/dashboard</div>
+                    <div>GET https://fitness-tracker-1-tt21.onrender.com/api/workouts</div>
+                    <div>POST https://fitness-tracker-1-tt21.onrender.com/api/workouts</div>
+                    <div>DELETE https://fitness-tracker-1-tt21.onrender.com/api/workouts/{id}</div>
+                    <div>GET https://fitness-tracker-1-tt21.onrender.com/api/progress</div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>TrackBuddy &copy; 2023 | Corporate Wellness Platform | v2.1.4</p>
+        </footer>
+    </div>
+
+    <script src="user-manager.js"></script>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show feedback
+                const btn = event.target.closest('.copy-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            await UserManager.initPage();
+        });
+    </script>
+</body>
+</html>

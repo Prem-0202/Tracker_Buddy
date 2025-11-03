@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition - TrackBuddy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="logo-text">TrackBuddy</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a></li>
+            <li><a href="profile.html" class="nav-link"><i class="fas fa-user-md"></i> <span>Health Profile</span></a></li>
+            <li><a href="nutrition.html" class="nav-link active"><i class="fas fa-apple-alt"></i> <span>Nutrition</span></a></li>
+            <li><a href="fitness.html" class="nav-link"><i class="fas fa-running"></i> <span>Fitness</span></a></li>
+            <li><a href="hydration.html" class="nav-link"><i class="fas fa-tint"></i> <span>Hydration</span></a></li>
+            <li><a href="reports.html" class="nav-link"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header class="header">
+            <h1>Nutrition Tracker</h1>
+            <div class="user-profile">
+                <div class="user-avatar">JD</div>
+                <div>
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Employee ID: C-7842</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Nutrition Tracker</div>
+                    <div class="card-actions">
+                        <button class="btn" id="add-meal-btn"><i class="fas fa-plus"></i> Add Meal</button>
+                    </div>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab active" data-tab="breakfast">Breakfast</div>
+                    <div class="tab" data-tab="lunch">Lunch</div>
+                    <div class="tab" data-tab="dinner">Dinner</div>
+                    <div class="tab" data-tab="snacks">Snacks</div>
+                </div>
+                
+                <div class="tab-content active" id="breakfast-tab">
+                    <form class="calorie-form tracker-form" data-meal="breakfast">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="food-name" placeholder="Food item (e.g., apple, rice, chicken)" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="food-quantity" placeholder="Quantity (grams)" min="1" value="100" required>
+                            </div>
+                            <button type="submit" class="btn">Add Food</button>
+                        </div>
+                    </form>
+                    <ul class="calorie-list tracker-list"></ul>
+                    <div class="calorie-total tracker-total" style="text-align: center; padding: 1rem; font-weight: 600; background: rgba(37, 99, 235, 0.1); border-radius: 8px;">Breakfast Calories: 0</div>
+                </div>
+                
+                <div class="tab-content" id="lunch-tab">
+                    <form class="calorie-form tracker-form" data-meal="lunch">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="food-name" placeholder="Food item (e.g., apple, rice, chicken)" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="food-quantity" placeholder="Quantity (grams)" min="1" value="100" required>
+                            </div>
+                            <button type="submit" class="btn">Add Food</button>
+                        </div>
+                    </form>
+                    <ul class="calorie-list tracker-list"></ul>
+                    <div class="calorie-total tracker-total" style="text-align: center; padding: 1rem; font-weight: 600; background: rgba(37, 99, 235, 0.1); border-radius: 8px;">Lunch Calories: 0</div>
+                </div>
+                
+                <div class="tab-content" id="dinner-tab">
+                    <form class="calorie-form tracker-form" data-meal="dinner">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="food-name" placeholder="Food item (e.g., apple, rice, chicken)" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="food-quantity" placeholder="Quantity (grams)" min="1" value="100" required>
+                            </div>
+                            <button type="submit" class="btn">Add Food</button>
+                        </div>
+                    </form>
+                    <ul class="calorie-list tracker-list"></ul>
+                    <div class="calorie-total tracker-total" style="text-align: center; padding: 1rem; font-weight: 600; background: rgba(37, 99, 235, 0.1); border-radius: 8px;">Dinner Calories: 0</div>
+                </div>
+                
+                <div class="tab-content" id="snacks-tab">
+                    <form class="calorie-form tracker-form" data-meal="snacks">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="food-name" placeholder="Food item (e.g., apple, rice, chicken)" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="food-quantity" placeholder="Quantity (grams)" min="1" value="100" required>
+                            </div>
+                            <button type="submit" class="btn">Add Food</button>
+                        </div>
+                    </form>
+                    <ul class="calorie-list tracker-list"></ul>
+                    <div class="calorie-total tracker-total" style="text-align: center; padding: 1rem; font-weight: 600; background: rgba(37, 99, 235, 0.1); border-radius: 8px;">Snacks Calories: 0</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Daily Nutrition Goals</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Calories</label>
+                        <div class="progress-container">
+                            <div id="calorie-progress" class="progress-bar"></div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.9rem;" id="calorie-text">0 / 2000</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Protein</label>
+                        <div class="progress-container">
+                            <div id="protein-progress" class="progress-bar" style="background: var(--success);"></div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.9rem;">0g / 50g</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Carbs</label>
+                        <div class="progress-container">
+                            <div id="carbs-progress" class="progress-bar" style="background: var(--warning);"></div>
+                        </div>
+                        <div style="text-align: center; font-size: 0.9rem;">0g / 250g</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>TrackBuddy &copy; 2023 | Corporate Wellness Platform | v2.1.4</p>
+        </footer>
+    </div>
+
+    <script src="user-manager.js"></script>
+    <script src="nutrition.js"></script>
+</body>
+</html>

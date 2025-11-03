@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackBuddy - Corporate Wellness Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--darker); flex-direction: column;">
+        <div style="color: var(--light); text-align: center;">
+            <h1>TrackBuddy</h1>
+            <p id="status">Checking authentication...</p>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication and redirect appropriately
+        const statusEl = document.getElementById('status');
+        const authToken = localStorage.getItem('authToken');
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        
+        if (authToken && isLoggedIn === 'true') {
+            statusEl.textContent = 'Redirecting to dashboard...';
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        } else {
+            statusEl.textContent = 'Redirecting to sign in...';
+            setTimeout(() => {
+                window.location.href = 'signin.html';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

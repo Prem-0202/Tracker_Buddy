@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset - TrackBuddy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--darker); flex-direction: column; gap: 2rem;">
+        <h1 style="color: var(--light);">TrackBuddy Reset</h1>
+        <button class="btn" onclick="resetAndGo()" style="font-size: 1.2rem; padding: 1rem 2rem;">
+            Clear Storage & Go to Sign In
+        </button>
+        <p style="color: var(--gray);">This will clear all stored data and take you to the sign in page</p>
+    </div>
+
+    <script>
+        function resetAndGo() {
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('Storage cleared successfully!');
+            window.location.href = 'signin.html';
+        }
+        
+        // Auto-clear after 3 seconds if user doesn't click
+        setTimeout(() => {
+            resetAndGo();
+        }, 3000);
+    </script>
+</body>
+</html>

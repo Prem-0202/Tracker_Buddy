@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - TrackBuddy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--darker); flex-direction: column; gap: 1rem;">
+        <h1 style="color: var(--light);">TrackBuddy Test Page</h1>
+        <div style="display: flex; gap: 1rem;">
+            <button class="btn" onclick="clearStorage()">Clear Storage & Go to Sign In</button>
+            <button class="btn" onclick="window.location.href='signin.html'">Go to Sign In</button>
+            <button class="btn" onclick="window.location.href='register.html'">Go to Register</button>
+            <button class="btn" onclick="window.location.href='dashboard.html'">Go to Dashboard</button>
+        </div>
+        <p style="color: var(--gray);">Use this page to test different authentication states</p>
+    </div>
+
+    <script>
+        function clearStorage() {
+            localStorage.clear();
+            alert('Storage cleared! Redirecting to sign in...');
+            window.location.href = 'signin.html';
+        }
+    </script>
+</body>
+</html>
