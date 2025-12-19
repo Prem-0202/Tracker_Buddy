@@ -554,6 +554,161 @@ function printReport() {
     window.print();
 }
 
+// Export functions
+async function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    // Get current user data
+    const userData = await getCurrentUserData();
+    const reportPeriod = document.getElementById('report-period').value;
+    const periodText = getPeriodText(reportPeriod);
+    
+    // Add title
+    doc.setFontSize(20);
+    doc.text('TrackBuddy Health Report', 20, 20);
+    
+    doc.setFontSize(12);
+    doc.text(`Period: ${periodText}`, 20, 35);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
+    
+    let yPos = 60;
+    
+    if (userData.fitness && userData.fitness.length > 0) {
+        doc.setFontSize(14);
+        doc.text('Fitness Summary', 20, yPos);
+        yPos += 10;
+        
+        const totalWorkouts = userData.fitness.length;
+        const totalCalories = userData.fitness.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
+        
+        doc.setFontSize(10);
+        doc.text(`Total Workouts: ${totalWorkouts}`, 20, yPos);
+        doc.text(`Calories Burned: ${totalCalories}`, 20, yPos + 10);
+        yPos += 25;
+    }
+    
+    if (userData.progress && userData.progress.length > 0) {
+        const latest = userData.progress[0];
+        doc.setFontSize(14);
+        doc.text('Current Progress', 20, yPos);
+        yPos += 10;
+        
+        doc.setFontSize(10);
+        doc.text(`Weight: ${latest.weight} kg`, 20, yPos);
+        doc.text(`Body Fat: ${latest.bodyFat}%`, 20, yPos + 10);
+        doc.text(`Muscle Mass: ${latest.muscleMass} kg`, 20, yPos + 20);
+        yPos += 35;
+    }
+    
+    doc.save('trackbuddy-report.pdf');
+}
+
+async function exportToCSV() {
+    const userData = await getCurrentUserData();
+    let csvContent = 'Type,Date,Value,Unit,Notes\n';
+    
+    // Add fitness data
+    if (userData.fitness) {
+        userData.fitness.forEach(workout => {
+            csvContent += `Fitness,${workout.date || new Date().toISOString()},${workout.caloriesBurned || 0},calories,${workout.type || ''}\n`;
+        });
+    }
+    
+    // Add progress data
+    if (userData.progress) {
+        userData.progress.forEach(progress => {
+            csvContent += `Weight,${progress.date || new Date().toISOString()},${progress.weight},kg,\n`;
+            csvContent += `Body Fat,${progress.date || new Date().toISOString()},${progress.bodyFat},%,\n`;
+            csvContent += `Muscle Mass,${progress.date || new Date().toISOString()},${progress.muscleMass},kg,\n`;
+        });
+    }
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'trackbuddy-data.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+async function exportToExcel() {
+    const userData = await getCurrentUserData();
+    const wb = XLSX.utils.book_new();
+    
+    // Fitness sheet
+    if (userData.fitness && userData.fitness.length > 0) {
+        const fitnessData = userData.fitness.map(workout => ({
+            Date: workout.date || new Date().toISOString().split('T')[0],
+            Type: workout.type || '',
+            Duration: workout.duration || 0,
+            'Calories Burned': workout.caloriesBurned || 0,
+            Notes: workout.notes || ''
+        }));
+        const fitnessWs = XLSX.utils.json_to_sheet(fitnessData);
+        XLSX.utils.book_append_sheet(wb, fitnessWs, 'Fitness');
+    }
+    
+    // Progress sheet
+    if (userData.progress && userData.progress.length > 0) {
+        const progressData = userData.progress.map(progress => ({
+            Date: progress.date || new Date().toISOString().split('T')[0],
+            'Weight (kg)': progress.weight,
+            'Body Fat (%)': progress.bodyFat,
+            'Muscle Mass (kg)': progress.muscleMass,
+            'Chest (cm)': progress.measurements?.chest || '',
+            'Waist (cm)': progress.measurements?.waist || '',
+            'Hips (cm)': progress.measurements?.hips || '',
+            Notes: progress.notes || ''
+        }));
+        const progressWs = XLSX.utils.json_to_sheet(progressData);
+        XLSX.utils.book_append_sheet(wb, progressWs, 'Progress');
+    }
+    
+    XLSX.writeFile(wb, 'trackbuddy-report.xlsx');
+}
+
+function exportChart() {
+    const canvas = document.getElementById('progress-chart');
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'progress-chart.png';
+    a.click();
+}
+
+async function getCurrentUserData() {
+    const token = localStorage.getItem('authToken');
+    const endpoints = [
+        { type: 'fitness', url: 'https://fitness-tracker-1-tt21.onrender.com/api/workouts' },
+        { type: 'nutrition', url: 'https://fitness-tracker-1-tt21.onrender.com/api/nutrition' },
+        { type: 'hydration', url: 'https://fitness-tracker-1-tt21.onrender.com/api/hydration' },
+        { type: 'progress', url: 'https://fitness-tracker-1-tt21.onrender.com/api/progress' }
+    ];
+    
+    const userData = {};
+    
+    for (const endpoint of endpoints) {
+        try {
+            const response = await fetch(endpoint.url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success && result.data) {
+                    userData[endpoint.type] = result.data;
+                }
+            }
+        } catch (error) {
+            console.error(`Error fetching ${endpoint.type}:`, error);
+        }
+    }
+    
+    return userData;
+}
+
 // Initialize reports page
 document.addEventListener('DOMContentLoaded', async function() {
     await UserManager.initPage();
@@ -565,4 +720,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (generateReportBtn) {
         generateReportBtn.addEventListener('click', generateReport);
     }
+    
+    // Add export event listeners
+    document.getElementById('export-pdf-btn').addEventListener('click', exportToPDF);
+    document.getElementById('export-csv-btn').addEventListener('click', exportToCSV);
+    document.getElementById('export-excel-btn').addEventListener('click', exportToExcel);
+    document.getElementById('export-chart-btn').addEventListener('click', exportChart);
 });

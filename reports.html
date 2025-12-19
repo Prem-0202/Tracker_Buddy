@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports - TrackBuddy</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -45,7 +47,9 @@
                 <div class="card-header">
                     <div class="card-title">Health Reports & Analytics</div>
                     <div class="card-actions">
-                        <button class="btn"><i class="fas fa-download"></i> Export PDF</button>
+                        <button class="btn" id="export-pdf-btn"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                        <button class="btn" id="export-csv-btn"><i class="fas fa-file-csv"></i> Export CSV</button>
+                        <button class="btn" id="export-excel-btn"><i class="fas fa-file-excel"></i> Export Excel</button>
                     </div>
                 </div>
                 <div class="form-row">
@@ -131,6 +135,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">Progress Chart</div>
+                    <div class="card-actions">
+                        <button class="btn" id="export-chart-btn"><i class="fas fa-image"></i> Export Chart</button>
+                    </div>
                 </div>
                 <div class="chart-container">
                     <canvas id="progress-chart"></canvas>
