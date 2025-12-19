@@ -1,6 +1,59 @@
 // Water Tracker
 let waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
 const waterGoal = 8;
+let hydrationData = [];
+
+// Fetch hydration data from API
+async function fetchHydrationData() {
+    try {
+        const token = localStorage.getItem('authToken');
+        if (!token) return;
+        
+        const today = new Date().toISOString().split('T')[0];
+        const response = await fetch(`https://fitness-tracker-1-tt21.onrender.com/api/hydration/gethydra?date=${today}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success && result.data && result.data.length > 0) {
+                const todayData = result.data[0];
+                waterCount = todayData.glasses || 0;
+                hydrationData = result.data;
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching hydration data:', error);
+    }
+}
+
+// Save hydration data to API
+async function saveHydrationData(glasses) {
+    try {
+        const token = localStorage.getItem('authToken');
+        if (!token) return;
+        
+        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/hydration/addhydra', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                glasses: glasses,
+                amount: glasses * 250
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error('Failed to save hydration data');
+        }
+    } catch (error) {
+        console.error('Error saving hydration data:', error);
+    }
+}
 
 function updateWaterDisplay() {
     const progress = (waterCount / waterGoal) * 100;
@@ -20,24 +73,27 @@ function updateWaterDisplay() {
     localStorage.setItem('waterCount', waterCount);
 }
 
-document.getElementById('add-glass').addEventListener('click', function() {
+document.getElementById('add-glass').addEventListener('click', async function() {
     if (waterCount < waterGoal) {
         waterCount++;
         updateWaterDisplay();
+        await saveHydrationData(waterCount);
     }
 });
 
-document.getElementById('reset-water').addEventListener('click', function() {
+document.getElementById('reset-water').addEventListener('click', async function() {
     waterCount = 0;
     updateWaterDisplay();
+    await saveHydrationData(waterCount);
 });
 
 // Click on water glasses
 document.querySelectorAll('.water-glass').forEach(glass => {
-    glass.addEventListener('click', function() {
+    glass.addEventListener('click', async function() {
         const glassNum = parseInt(this.getAttribute('data-glass'));
         waterCount = glassNum;
         updateWaterDisplay();
+        await saveHydrationData(waterCount);
     });
 });
 
@@ -80,7 +136,9 @@ function initHydrationChart() {
 }
 
 // Initialize hydration page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    await UserManager.initPage();
+    await fetchHydrationData();
     updateWaterDisplay();
     initHydrationChart();
 });
