@@ -4,7 +4,7 @@ async function fetchDashboardData() {
         const token = localStorage.getItem('authToken');
         if (!token) return;
         
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/users/dashboard', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/users/dashboard', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -142,7 +142,7 @@ function checkAuth() {
 // Load user profile for header
 async function loadUserProfile() {
     try {
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/users/profile', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/users/profile', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }

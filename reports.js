@@ -4,7 +4,7 @@ async function fetchProgressData() {
         const token = localStorage.getItem('authToken');
         if (!token) return;
         
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/progress', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/progress', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -71,7 +71,7 @@ async function fetchProgressStats() {
         const token = localStorage.getItem('authToken');
         if (!token) return;
         
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/progress/stats/progress', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/progress/stats/progress', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -178,7 +178,7 @@ document.getElementById('progress-form').addEventListener('submit', async functi
     
     try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/progress', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/progress', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -220,13 +220,13 @@ async function generateReport() {
         // Determine API endpoint based on report type
         switch (reportType) {
             case 'fitness':
-                apiEndpoint = 'https://fitness-tracker-1-tt21.onrender.com/api/workouts';
+                apiEndpoint = 'https://fitness-tracker-x15u.onrender.com/api/workouts';
                 break;
             case 'nutrition':
-                apiEndpoint = 'https://fitness-tracker-1-tt21.onrender.com/api/nutrition';
+                apiEndpoint = 'https://fitness-tracker-x15u.onrender.com/api/nutrition';
                 break;
             case 'hydration':
-                apiEndpoint = 'https://fitness-tracker-1-tt21.onrender.com/api/hydration';
+                apiEndpoint = 'https://fitness-tracker-x15u.onrender.com/api/hydration';
                 break;
             case 'summary':
             default:
@@ -265,10 +265,10 @@ async function generateReport() {
 async function generateSummaryReport(period) {
     const token = localStorage.getItem('authToken');
     const endpoints = [
-        { type: 'fitness', url: 'https://fitness-tracker-1-tt21.onrender.com/api/workouts' },
-        { type: 'nutrition', url: 'https://fitness-tracker-1-tt21.onrender.com/api/nutrition' },
-        { type: 'hydration', url: 'https://fitness-tracker-1-tt21.onrender.com/api/hydration' },
-        { type: 'progress', url: 'https://fitness-tracker-1-tt21.onrender.com/api/progress' }
+        { type: 'fitness', url: 'https://fitness-tracker-x15u.onrender.com/api/workouts' },
+        { type: 'nutrition', url: 'https://fitness-tracker-x15u.onrender.com/api/nutrition' },
+        { type: 'hydration', url: 'https://fitness-tracker-x15u.onrender.com/api/hydration' },
+        { type: 'progress', url: 'https://fitness-tracker-x15u.onrender.com/api/progress' }
     ];
     
     const summaryData = {};
@@ -681,10 +681,10 @@ function exportChart() {
 async function getCurrentUserData() {
     const token = localStorage.getItem('authToken');
     const endpoints = [
-        { type: 'fitness', url: 'https://fitness-tracker-1-tt21.onrender.com/api/workouts' },
-        { type: 'nutrition', url: 'https://fitness-tracker-1-tt21.onrender.com/api/nutrition' },
-        { type: 'hydration', url: 'https://fitness-tracker-1-tt21.onrender.com/api/hydration' },
-        { type: 'progress', url: 'https://fitness-tracker-1-tt21.onrender.com/api/progress' }
+        { type: 'fitness', url: 'https://fitness-tracker-x15u.onrender.com/api/workouts' },
+        { type: 'nutrition', url: 'https://fitness-tracker-x15u.onrender.com/api/nutrition' },
+        { type: 'hydration', url: 'https://fitness-tracker-x15u.onrender.com/api/hydration' },
+        { type: 'progress', url: 'https://fitness-tracker-x15u.onrender.com/api/progress' }
     ];
     
     const userData = {};

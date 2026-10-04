@@ -10,7 +10,7 @@ async function fetchHydrationData() {
         if (!token) return;
         
         const today = new Date().toISOString().split('T')[0];
-        const response = await fetch(`https://fitness-tracker-1-tt21.onrender.com/api/hydration/gethydra?date=${today}`, {
+        const response = await fetch(`https://fitness-tracker-x15u.onrender.com/api/hydration/gethydra?date=${today}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -35,7 +35,7 @@ async function saveHydrationData(glasses) {
         const token = localStorage.getItem('authToken');
         if (!token) return;
         
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/hydration/addhydra', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/hydration/addhydra', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

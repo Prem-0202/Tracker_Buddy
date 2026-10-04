@@ -5,7 +5,7 @@ class UserManager {
             const token = localStorage.getItem('authToken');
             if (!token) return null;
 
-            const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/users/profile', {
+            const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/users/profile', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 

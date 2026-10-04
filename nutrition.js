@@ -214,7 +214,7 @@ document.addEventListener('submit', function(e) {
         try {
             const token = localStorage.getItem('authToken');
             if (token) {
-                fetch('https://fitness-tracker-1-tt21.onrender.com/api/nutrition', {
+                fetch('https://fitness-tracker-x15u.onrender.com/api/nutrition', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -275,7 +275,7 @@ async function fetchNutritionData() {
         if (!token) return;
         const today = new Date().toISOString().split('T')[0];
         
-        const response = await fetch(`https://fitness-tracker-1-tt21.onrender.com/api/nutrition?date=${today}`, {
+        const response = await fetch(`https://fitness-tracker-x15u.onrender.com/api/nutrition?date=${today}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

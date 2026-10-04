@@ -8,7 +8,7 @@ async function fetchWorkouts() {
         const token = localStorage.getItem('authToken');
         if (!token) return;
         
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/workouts', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/workouts', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -148,7 +148,7 @@ document.getElementById('workout-form').addEventListener('submit', async functio
         
         if (token) {
             // Post to API
-            const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/workouts', {
+            const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/workouts', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -217,7 +217,7 @@ document.addEventListener('click', async function(e) {
             
             if (token && workoutId && workoutId !== 'undefined') {
                 // Delete from API
-                const response = await fetch(`https://fitness-tracker-1-tt21.onrender.com/api/workouts/${workoutId}`, {
+                const response = await fetch(`https://fitness-tracker-x15u.onrender.com/api/workouts/${workoutId}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${token}`,

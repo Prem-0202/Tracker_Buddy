@@ -6,7 +6,7 @@ if (!localStorage.getItem('authToken')) {
 // Load profile data
 async function loadProfile() {
     try {
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/users/profile', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/users/profile', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -51,7 +51,7 @@ document.getElementById('profile-form').addEventListener('submit', async functio
     };
     
     try {
-        const response = await fetch('https://fitness-tracker-1-tt21.onrender.com/api/users/profile', {
+        const response = await fetch('https://fitness-tracker-x15u.onrender.com/api/users/profile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
