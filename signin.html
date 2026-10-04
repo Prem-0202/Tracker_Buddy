@@ -211,6 +211,19 @@
             transition: color 0.3s;
         }
 
+        .input-wrapper .toggle-pw {
+            left: auto;
+            right: 1rem;
+            pointer-events: all !important;
+            cursor: pointer;
+            z-index: 5;
+        }
+        .input-wrapper .toggle-pw:hover { color: var(--primary); }
+
+        .input-wrapper input.has-toggle {
+            padding-right: 2.8rem;
+        }
+
         .input-wrapper input {
             width: 100%;
             padding: 0.85rem 1rem 0.85rem 2.8rem;
@@ -445,7 +458,7 @@
                     <label>Password</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <input type="password" id="password" placeholder="Enter your password" required style="padding-right:2.8rem">
                         <i class="fas fa-eye toggle-pw" id="toggle-pw"></i>
                     </div>
                 </div>

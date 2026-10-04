@@ -96,8 +96,10 @@
         .toggle-pw {
             position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%);
             color: var(--gray); cursor: pointer; font-size: 0.85rem; transition: color 0.2s;
+            pointer-events: all !important; z-index: 5;
         }
         .toggle-pw:hover { color: #818cf8; }
+        .input-wrapper i.icon { pointer-events: none; }
 
         .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
