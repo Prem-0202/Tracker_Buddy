@@ -530,6 +530,8 @@
                         localStorage.setItem('isLoggedIn', 'true');
                         localStorage.setItem('authToken', data.token);
                         localStorage.setItem('userData', JSON.stringify(data.user));
+                        localStorage.setItem('userName', data.user.name);
+                        localStorage.setItem('userEmail', data.user.email);
                         setTimeout(() => window.location.href = 'dashboard.html', 800);
                     } else {
                         submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';

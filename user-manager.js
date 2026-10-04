@@ -1,4 +1,3 @@
-// Global user management
 class UserManager {
     static async loadUserData() {
         try {
@@ -12,8 +11,6 @@ class UserManager {
             if (response.ok) {
                 const data = await response.json();
                 const user = data.user;
-                
-                // Store user data in localStorage
                 localStorage.setItem('userData', JSON.stringify(user));
                 return user;
             }
@@ -24,46 +21,56 @@ class UserManager {
     }
 
     static getUserData() {
+        // Try full userData object first
         const userData = localStorage.getItem('userData');
-        return userData ? JSON.parse(userData) : null;
+        if (userData) {
+            try { return JSON.parse(userData); } catch(e) {}
+        }
+        // Fallback to individual keys set during login/register
+        const name = localStorage.getItem('userName');
+        const email = localStorage.getItem('userEmail');
+        if (name || email) {
+            return { name: name || 'User', email: email || '' };
+        }
+        return null;
     }
 
     static updateUserHeader() {
         const user = this.getUserData();
-        
-        const userNameEl = document.getElementById('user-name');
+
+        const userNameEl  = document.getElementById('user-name');
         const userEmailEl = document.getElementById('user-email');
         const userAvatarEl = document.getElementById('user-avatar');
 
         if (user) {
-            if (userNameEl) userNameEl.textContent = user.name;
-            if (userEmailEl) userEmailEl.textContent = user.email;
+            if (userNameEl)  userNameEl.textContent  = user.name  || 'User';
+            if (userEmailEl) userEmailEl.textContent = user.email || '';
             if (userAvatarEl) {
-                const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const initials = (user.name || 'U')
+                    .split(' ')
+                    .map(n => n[0])
+                    .join('')
+                    .toUpperCase()
+                    .slice(0, 2);
                 userAvatarEl.textContent = initials;
             }
         }
-        
-        // Add logout button if not exists
+
         this.addLogoutButton();
     }
 
     static async initPage() {
-        // Check auth
         if (!localStorage.getItem('authToken')) {
             window.location.href = 'signin.html';
             return;
         }
 
-        // Update header immediately with cached data
+        // Show cached data immediately (no flicker)
         this.updateUserHeader();
-        
-        // Load fresh user data if not cached
-        let user = this.getUserData();
-        if (!user) {
-            user = await this.loadUserData();
-            this.updateUserHeader(); // Update again with fresh data
-        }
+
+        // Always fetch fresh data in background
+        const user = await this.loadUserData();
+        if (user) this.updateUserHeader();
     }
 
     static addLogoutButton() {
@@ -72,8 +79,7 @@ class UserManager {
             const logoutBtn = document.createElement('button');
             logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
             logoutBtn.className = 'btn btn-outline logout-btn';
-            logoutBtn.style.marginLeft = '1rem';
-            logoutBtn.style.padding = '0.5rem';
+            logoutBtn.style.cssText = 'padding:0.45rem 0.7rem; margin-left:0.5rem;';
             logoutBtn.title = 'Logout';
             logoutBtn.onclick = this.logout;
             userProfile.appendChild(logoutBtn);
