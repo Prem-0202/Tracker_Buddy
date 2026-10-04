@@ -210,21 +210,23 @@ document.addEventListener('submit', function(e) {
             time: time
         };
         
-        // Save to local API
+        // Save to API
         try {
-            const userId = localStorage.getItem('userId') || 'user1';
-            fetch('http://localhost:3000/api/nutrition', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${userId}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ...foodItem,
-                    meal: meal,
-                    date: new Date().toISOString().split('T')[0]
-                })
-            }).catch(err => console.log('API save failed, using localStorage'));
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                fetch('https://fitness-tracker-1-tt21.onrender.com/api/nutrition', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ...foodItem,
+                        meal: meal,
+                        date: new Date().toISOString().split('T')[0]
+                    })
+                }).catch(err => console.log('API save failed, using localStorage'));
+            }
         } catch (error) {
             console.log('API not available, using localStorage');
         }
@@ -269,12 +271,13 @@ document.querySelectorAll('.tab').forEach(tab => {
 // Fetch nutrition data from local API
 async function fetchNutritionData() {
     try {
-        const userId = localStorage.getItem('userId') || 'user1';
+        const token = localStorage.getItem('authToken');
+        if (!token) return;
         const today = new Date().toISOString().split('T')[0];
         
-        const response = await fetch(`http://localhost:3000/api/nutrition?date=${today}`, {
+        const response = await fetch(`https://fitness-tracker-1-tt21.onrender.com/api/nutrition?date=${today}`, {
             headers: {
-                'Authorization': `Bearer ${userId}`
+                'Authorization': `Bearer ${token}`
             }
         });
         
